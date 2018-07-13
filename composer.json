@@ -1,6 +1,7 @@
 {
     "name": "jclaveau/phpunit-profile-asserts",
     "keywords": ["PHPUnit", "profile", "assert"],
+    "description": "Provides asserts against memory usage and execution time for PHPUnit",
     "homepage": "https://github.com/jclaveau/phpunit-profile-asserts",
     "type": "library",
     "license": "MIT",

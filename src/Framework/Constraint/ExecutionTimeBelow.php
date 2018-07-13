@@ -6,7 +6,7 @@ use       JClaveau\PHPUnit\Listener\StopwatchListener;
  * Checks that the duration of the current test case is shorter than a given
  * amount of seconds.
  */
-class ExecutionTimeShorter extends TestCaseRelatedConstraint
+class ExecutionTimeBelow extends TestCaseRelatedConstraint
 {
     /**
      * @var $limit

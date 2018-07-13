@@ -1,11 +1,11 @@
 <?php
 namespace JClaveau\PHPUnit\Framework;
 use       JClaveau\PHPUnit\Framework\Constraint\MemoryUsageBelow;
-use       JClaveau\PHPUnit\Framework\Constraint\ExecutionTimeShorter;
+use       JClaveau\PHPUnit\Framework\Constraint\ExecutionTimeBelow;
 
 /**
  * This traits provides the support of assertMemoryUsageBelow() and
- * assertExecutionTimeShorter() to PHPunit's TestCase
+ * assertExecutionTimeBelow() to PHPunit's TestCase
  */
 trait UsageConstraintTrait
 {
@@ -14,8 +14,8 @@ trait UsageConstraintTrait
         self::assertThat($response, new MemoryUsageBelow($this), $message);
     }
 
-    public function assertExecutionTimeShorter($response, $message = '')
+    public function assertExecutionTimeBelow($response, $message = '')
     {
-        self::assertThat($response, new ExecutionTimeShorter($this), $message);
+        self::assertThat($response, new ExecutionTimeBelow($this), $message);
     }
 }

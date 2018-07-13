@@ -7,23 +7,11 @@ It also provides a StopwatchListener based on the Stopwatch component of Symfony
 
 ## Installation
 
-Add this to your composer.json.
 
-```json
-{
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/jclaveau/phpunit-profile-asserts",
-            "no-api": true
-        }
-    ],
-    "require-dev": {
-        "jclaveau/phpunit-profile-asserts": "1.*",
-    }
-}
-```
+phpunit-profile-asserts is installable via [Composer](http://getcomposer.org)
+and should be added as a `require-dev` dependency:
 
+    composer require --dev jclaveau/phpunit-profile-asserts
 
 ## Usage
 
@@ -49,7 +37,7 @@ class SomeTestCase extends \PHPUnit_Framework_TestCase
     {
         ...
 
-        $this->assertExecutionTimeShorter(100); // seconds
+        $this->assertExecutionTimeBelow(100); // seconds
         $this->assertMemoryUsageBelow('1M');
     }
 

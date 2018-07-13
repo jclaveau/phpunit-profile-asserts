@@ -13,11 +13,11 @@ class AssertsTest extends TestCase
     public function test_assertExecutionTimeExceeded()
     {
         $this->extendTime(50);
-        $this->assertExecutionTimeShorter(100);
+        $this->assertExecutionTimeBelow(100);
 
         try {
             $this->extendTime(300);
-            $this->assertExecutionTimeShorter(100);
+            $this->assertExecutionTimeBelow(100);
         }
         catch (\Exception $e) {
             $this->assertRegExp(
