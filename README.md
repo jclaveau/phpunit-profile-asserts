@@ -35,10 +35,15 @@ class SomeTestCase extends \PHPUnit_Framework_TestCase
      */
     public function test_usages()
     {
-        ...
+        // ...
 
-        $this->assertExecutionTimeBelow(100); // seconds
+        $this->assertExecutionTimeBelow(1.5); // seconds
         $this->assertMemoryUsageBelow('1M');
+
+        // This trait also provides two methods to help knowing the current
+        // memory usage and duration
+        $this->getMemoryUsage();
+        $this->getExecutionTime();
     }
 
 }

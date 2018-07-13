@@ -48,7 +48,7 @@ class StopwatchListener implements TestListener
 
         self::$instance = $this;
 
-        self::$stopwatch = new Stopwatch();
+        self::$stopwatch = new Stopwatch(true);
         // $this->loadOptions($options);
     }
 
@@ -85,7 +85,7 @@ class StopwatchListener implements TestListener
      */
     public static function getTestDuration($name)
     {
-        return self::getTestStopwatchEvent($name)->getDuration();
+        return self::getTestStopwatchEvent($name)->lap()->getDuration() / 1000;
     }
 
     /**

@@ -12,19 +12,22 @@ class AssertsTest extends TestCase
      */
     public function test_assertExecutionTimeExceeded()
     {
-        $this->extendTime(50);
-        $this->assertExecutionTimeBelow(100);
+        $this->sleep(0.5);
+        $this->assertExecutionTimeBelow(0.6);
 
         try {
-            $this->extendTime(300);
-            $this->assertExecutionTimeBelow(100);
+            $this->sleep(1);
+            $this->assertExecutionTimeBelow(1);
         }
         catch (\Exception $e) {
             $this->assertRegExp(
-                "/Failed asserting that 100 is longer than the test execution duration: \d+/",
+                "/Failed asserting that 1 second\(s\) is longer than the test execution duration: \d+(\.\d+)? second\(s\)/",
                 $e->getMessage()
             );
+            return;
         }
+
+        $this->assertFalse(true, 'An exception should have been thrown here');
     }
 
     /**
@@ -47,11 +50,34 @@ class AssertsTest extends TestCase
     }
 
     /**
-     * @param int $ms Number of additional microseconds to execute code
      */
-    private function extendTime($ms)
+    public function test_getMemoryUsage()
     {
-        usleep($ms * 1000);
+        $this->useMemory("1M");
+        $this->assertEquals( 1024 * 1024, $this->getMemoryUsage() );
+    }
+
+    /**
+     */
+    public function test_getExecutionTime()
+    {
+        $this->sleep(1.2);
+        $this->assertEquals(1.2, $this->getExecutionTime(), '', 0.01);
+    }
+
+    /**
+     */
+    public function test_getStopwatchEvent()
+    {
+        $this->assertInstanceOf( 'Symfony\Component\Stopwatch\StopwatchEvent', $this->getStopwatchEvent());
+    }
+
+    /**
+     * @param float $seconds Number of additional seconds to execute code
+     */
+    private function sleep($seconds)
+    {
+        usleep($seconds * 1000 * 1000);
     }
 
     private $usedMemory;

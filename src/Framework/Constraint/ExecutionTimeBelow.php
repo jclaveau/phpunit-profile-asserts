@@ -51,7 +51,7 @@ class ExecutionTimeBelow extends TestCaseRelatedConstraint
      */
     public function toString()
     {
-        return 'is longer than the test execution duration: ' . $this->limit;
+        return 'second(s) is longer than the test execution duration: ' . $this->limit . ' second(s)';
     }
 
     /**/
