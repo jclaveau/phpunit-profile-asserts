@@ -29,7 +29,7 @@ Enable by adding the following code to your project's `phpunit.xml` file:
 ```php
 class SomeTestCase extends \PHPUnit_Framework_TestCase
 {
-    use UsageConstraintTrait; // adds the asserts methods
+    use \JClaveau\PHPUnit\Framework\UsageConstraintTrait; // adds the asserts methods
 
     /**
      */
