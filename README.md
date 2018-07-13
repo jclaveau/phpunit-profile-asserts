@@ -19,7 +19,7 @@ Add this to your composer.json.
         }
     ],
     "require-dev": {
-        "jclaveau/phpunit-profile-asserts": "dev-master",
+        "jclaveau/phpunit-profile-asserts": "1.*",
     }
 }
 ```
