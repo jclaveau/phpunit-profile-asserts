@@ -18,20 +18,10 @@
             "email": "uusername@protonmail.ch"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/webD97/phpdoc-md",
-            "no-api": true
-        }
-    ],
     "require": {
         "php": ">=5.6",
         "phpunit/phpunit": "5.*",
         "symfony/stopwatch": "^3.4"
-    },
-    "require-dev": {
-        "webD97/phpdoc-md": "~0.2.0"
     },
     "autoload": {
         "psr-4": {
