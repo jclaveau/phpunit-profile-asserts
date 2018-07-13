@@ -1,0 +1,7 @@
+/vendor
+/tests_coverage
+/docs/phpdoc
+/phpunit.xml
+/composer.lock
+/.idea
+/clover.xml
