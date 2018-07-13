@@ -16,7 +16,7 @@ Add this to your composer.json.
             "url": "https://github.com/jclaveau/phpunit-profile-asserts",
             "no-api": true
         }
-    },
+    ],
     "require-dev": {
         "jclaveau/phpunit-profile-asserts": "dev-master",
     }

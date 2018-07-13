@@ -5,14 +5,19 @@ php:
   - 7.2
   - nightly
 
-cache:
-  directories:
-    - $HOME/.composer
-
+# Commands to be run before your environment runs.
 before_script:
-  - phpenv config-rm xdebug.ini || true
-  - if [ "$MIN_STABILITY" != "" ]; then composer config minimum-stability $MIN_STABILITY; fi
-  - composer require phpunit/phpunit:${PHPUNIT}
+ - composer self-update
+ - composer update --no-interaction
+ - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+ - chmod +x ./cc-test-reporter
+ - ./cc-test-reporter before-build
 
-script:
-  - ./vendor/bin/phpunit
+# Commands you want to run that will verify your build.
+script: ./phpunit --coverage-clover=coverage.xml --testsuite=all_tests
+
+after_script:
+ - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+after_success:
+ - bash <(curl -s https://codecov.io/bash)
