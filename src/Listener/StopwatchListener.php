@@ -1,12 +1,13 @@
 <?php
 namespace JClaveau\PHPUnit\Listener;
-use                PHPUnit_Framework_Test as Test;
-use                PHPUnit_Framework_TestListener as TestListener;
-use                PHPUnit_Framework_TestSuite as TestSuite;
-use                PHPUnit_Framework_AssertionFailedError as AssertionFailedError;
-use                PHPUnit_Framework_Warning as Warning;
 
-use       Symfony\Component\Stopwatch\Stopwatch;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Warning;
+
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * A PHPUnit TestListener that registers duration and time using the
@@ -16,8 +17,6 @@ use       Symfony\Component\Stopwatch\Stopwatch;
  */
 class StopwatchListener implements TestListener
 {
-    use TestListenerDefaultImplementation;
-
     /**
      * @var Stopwatch
      */
@@ -49,47 +48,34 @@ class StopwatchListener implements TestListener
         self::$instance = $this;
 
         self::$stopwatch = new Stopwatch(true);
-        // $this->loadOptions($options);
     }
 
-    public static function listens()
+    public static function listens(): bool
     {
         return self::$instance !== null;
     }
 
-    public function startTest(Test $test)
+    public function startTest(Test $test): void
     {
         self::$events[ $test->getName() ] = self::$stopwatch->start($test->getName());
         self::$initialMemory[ $test->getName() ] = self::$events[ $test->getName() ]->lap()->getMemory();
     }
 
-    /**
-     * A test ended.
-     *
-     * @param Test  $test
-     * @param float $time
-     */
-    public function endTest(Test $test, $time)
+    public function endTest(Test $test, float $time): void
     {
         self::$stopwatch->stop($test->getName());
     }
 
-    /**
-     */
     public static function getTestMemory($name)
     {
         return self::getTestStopwatchEvent($name)->lap()->getMemory() - self::$initialMemory[ $name ];
     }
 
-    /**
-     */
     public static function getTestDuration($name)
     {
         return self::getTestStopwatchEvent($name)->lap()->getDuration() / 1000;
     }
 
-    /**
-     */
     public static function getTestStopwatchEvent($name)
     {
         if (!isset(self::$events[$name])) {
@@ -102,39 +88,36 @@ class StopwatchListener implements TestListener
         return self::$events[$name];
     }
 
-    /**/
-}
+    // Required by TestListener interface but not used
+    public function addError(Test $test, \Throwable $t, float $time): void
+    {
+    }
 
-trait TestListenerDefaultImplementation
-{
-    public function addError(Test $test, \Exception $t, $time)
+    public function addWarning(Test $test, Warning $e, float $time): void
     {
     }
-    public function addWarning(Test $test, Warning $e, $time)
+
+    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
     }
-    public function addFailure(Test $test, AssertionFailedError $e, $time)
+
+    public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
     {
     }
-    public function addIncompleteTest(Test $test, \Exception $t, $time)
+
+    public function addRiskyTest(Test $test, \Throwable $t, float $time): void
     {
     }
-    public function addRiskyTest(Test $test, \Exception $t, $time)
+
+    public function addSkippedTest(Test $test, \Throwable $t, float $time): void
     {
     }
-    public function addSkippedTest(Test $test, \Exception $t, $time)
+
+    public function startTestSuite(TestSuite $suite): void
     {
     }
-    public function startTestSuite(TestSuite $suite)
-    {
-    }
-    public function endTestSuite(TestSuite $suite)
-    {
-    }
-    public function startTest(Test $test)
-    {
-    }
-    public function endTest(Test $test, $time)
+
+    public function endTestSuite(TestSuite $suite): void
     {
     }
 }
