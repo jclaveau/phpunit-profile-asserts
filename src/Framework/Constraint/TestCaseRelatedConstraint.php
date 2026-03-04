@@ -1,7 +1,7 @@
 <?php
 namespace JClaveau\PHPUnit\Framework\Constraint;
-use                PHPUnit_Framework_Constraint as Constraint;
-use                PHPUnit_Framework_TestCase   as TestCase;
+use PHPUnit\Framework\Constraint\Constraint;
+use PHPUnit\Framework\TestCase;
 
 abstract class TestCaseRelatedConstraint extends Constraint
 {
@@ -12,7 +12,6 @@ abstract class TestCaseRelatedConstraint extends Constraint
 
     public function __construct(TestCase $test_case)
     {
-        parent::__construct();
         $this->testCase = $test_case;
     }
 }

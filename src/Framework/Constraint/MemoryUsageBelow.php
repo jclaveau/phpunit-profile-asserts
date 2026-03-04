@@ -30,7 +30,7 @@ class MemoryUsageBelow extends TestCaseRelatedConstraint
      * @param  bool   $returnResult
      * @return bool
      */
-    public function evaluate($other, $description = '', $returnResult = false)
+    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         $this->usedMemory = StopwatchListener::getTestMemory( $this->testCase->getName() );
         // var_dump($this->usedMemory);
@@ -45,13 +45,15 @@ class MemoryUsageBelow extends TestCaseRelatedConstraint
         if (!$success) {
             $this->fail($other, $description);
         }
+
+        return null;
     }
 
 
     /**
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return 'memory limit has not been passed by '.$this->usedMemory;
     }

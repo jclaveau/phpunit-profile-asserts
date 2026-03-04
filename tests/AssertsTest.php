@@ -2,7 +2,7 @@
 namespace JClaveau\PHPUnit\Framework;
 use       JClaveau\PHPUnit\Framework\Constraint\MemoryUsageBelow;
 use       JClaveau\PHPUnit\Listener\StopwatchListener;
-use                PHPUnit_Framework_TestCase as TestCase;
+use       PHPUnit\Framework\TestCase;
 
 class AssertsTest extends TestCase
 {
@@ -20,7 +20,7 @@ class AssertsTest extends TestCase
             $this->assertExecutionTimeBelow(1);
         }
         catch (\Exception $e) {
-            $this->assertRegExp(
+            $this->assertMatchesRegularExpression(
                 "/Failed asserting that 1 second\(s\) is longer than the test execution duration: \d+(\.\d+)? second\(s\)/",
                 $e->getMessage()
             );
@@ -42,7 +42,7 @@ class AssertsTest extends TestCase
             $this->assertMemoryUsageBelow('1M');
         }
         catch (\Exception $e) {
-            $this->assertRegExp(
+            $this->assertMatchesRegularExpression(
                 "/Failed asserting that '1M' memory limit has not been passed by \d+/",
                 $e->getMessage()
             );
@@ -53,8 +53,12 @@ class AssertsTest extends TestCase
      */
     public function test_getMemoryUsage()
     {
-        $this->useMemory("1M");
-        $this->assertEquals( 1024 * 1024, $this->getMemoryUsage() );
+        $this->useMemory("10M");
+        $this->assertEqualsWithDelta(
+          1024 * 1024 * 10,
+          $this->getMemoryUsage(),
+          60 * 1024 // There are some memory fluctuations appearing between PHP 5.6 and 8 (Due to JIT?)
+        );
     }
 
     /**
@@ -62,7 +66,7 @@ class AssertsTest extends TestCase
     public function test_getExecutionTime()
     {
         $this->sleep(1.2);
-        $this->assertEquals(1.2, $this->getExecutionTime(), '', 0.01);
+        $this->assertEqualsWithDelta(1.2, $this->getExecutionTime(), 0.1);
     }
 
     /**

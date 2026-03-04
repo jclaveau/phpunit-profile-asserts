@@ -58,7 +58,7 @@ class StopwatchListener implements TestListener
     public function startTest(Test $test): void
     {
         self::$events[ $test->getName() ] = self::$stopwatch->start($test->getName());
-        self::$initialMemory[ $test->getName() ] = self::$events[ $test->getName() ]->lap()->getMemory();
+        self::$initialMemory[ $test->getName() ] = memory_get_usage();
     }
 
     public function endTest(Test $test, float $time): void
@@ -68,7 +68,10 @@ class StopwatchListener implements TestListener
 
     public static function getTestMemory($name)
     {
-        return self::getTestStopwatchEvent($name)->lap()->getMemory() - self::$initialMemory[ $name ];
+        // We don't use the $event->lap()->getMemory() api anymore as the measured memory
+        // during the StopwatchPeriod instanciation is higher (probably due ton the instanciation with the JIT).
+        // It produces false negative when testing less than 1Mb
+        return memory_get_usage() - self::$initialMemory[ $name ];
     }
 
     public static function getTestDuration($name)
