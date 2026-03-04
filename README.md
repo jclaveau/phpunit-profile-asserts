@@ -3,7 +3,7 @@
 This lib provides asserts against execution time and memory usage.
 It also provides a StopwatchListener based on the Stopwatch component of Symfony.
 
-[![Build Status](https://travis-ci.org/jclaveau/phpunit-profile-asserts.svg?branch=master)](https://travis-ci.org/jclaveau/phpunit-profile-asserts)
+[![Tests](https://github.com/jclaveau/phpunit-profile-asserts/actions/workflows/tests.yml/badge.svg)](https://github.com/jclaveau/phpunit-profile-asserts/actions/workflows/tests.yml)
 
 ## Installation
 
