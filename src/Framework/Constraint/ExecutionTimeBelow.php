@@ -30,7 +30,7 @@ class ExecutionTimeBelow extends TestCaseRelatedConstraint
      * @param  bool   $returnResult
      * @return bool
      */
-    public function evaluate($other, $description = '', $returnResult = false)
+    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         $this->limit = StopwatchListener::getTestDuration( $this->testCase->getName() );
 
@@ -43,13 +43,15 @@ class ExecutionTimeBelow extends TestCaseRelatedConstraint
         if (!$success) {
             $this->fail($other, $description);
         }
+
+        return null;
     }
 
 
     /**
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return 'second(s) is longer than the test execution duration: ' . $this->limit . ' second(s)';
     }

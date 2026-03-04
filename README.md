@@ -51,7 +51,6 @@ class SomeTestCase extends \PHPUnit_Framework_TestCase
 
 ## TODO
 
-+ PHP 7 implementation (find an elegant way to support PHP 5 and 7 together)
 + Integrate SpeedTrap and adds MemoryTrap
 + Investigate xhprof integration and asserts on number of calls / execution time of specific methods/functions
 

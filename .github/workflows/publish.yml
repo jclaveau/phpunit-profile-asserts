@@ -1,0 +1,19 @@
+name: Publish to Packagist
+
+on:
+  workflow_run:
+    workflows: [Tests]
+    types: [completed]
+    branches: [master]
+
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish to Packagist
+        uses: dawken/packagist-github-action@v1
+        with:
+          packagist-username: ${{ secrets.PACKAGIST_USERNAME }}
+          packagist-token: ${{ secrets.PACKAGIST_TOKEN }}
+          packagist-url: https://packagist.org
