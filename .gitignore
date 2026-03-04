@@ -5,3 +5,4 @@
 /composer.lock
 /.idea
 /clover.xml
+.phpunit.result.cache

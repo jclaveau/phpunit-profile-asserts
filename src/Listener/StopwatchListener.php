@@ -68,6 +68,9 @@ class StopwatchListener implements TestListener
 
     public static function getTestMemory($name)
     {
+        // We don't use the $event->lap()->getMemory() api anymore as the measured memory
+        // during the StopwatchPeriod instanciation is higher (probably due ton the instanciation with the JIT).
+        // It produces false negative when testing less than 1Mb
         return memory_get_usage() - self::$initialMemory[ $name ];
     }
 

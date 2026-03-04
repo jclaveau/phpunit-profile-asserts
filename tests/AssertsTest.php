@@ -2,7 +2,7 @@
 namespace JClaveau\PHPUnit\Framework;
 use       JClaveau\PHPUnit\Framework\Constraint\MemoryUsageBelow;
 use       JClaveau\PHPUnit\Listener\StopwatchListener;
-use PHPUnit\Framework\TestCase;
+use       PHPUnit\Framework\TestCase;
 
 class AssertsTest extends TestCase
 {
@@ -53,8 +53,12 @@ class AssertsTest extends TestCase
      */
     public function test_getMemoryUsage()
     {
-        $this->useMemory("1M");
-        $this->assertEqualsWithDelta( 1024 * 1024, $this->getMemoryUsage(), 100000 );
+        $this->useMemory("10M");
+        $this->assertEqualsWithDelta(
+          1024 * 1024 * 10,
+          $this->getMemoryUsage(),
+          60 * 1024 // There are some memory fluctuations appearing between PHP 5.6 and 8 (Due to JIT?)
+        );
     }
 
     /**
